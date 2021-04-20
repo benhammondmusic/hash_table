@@ -1,42 +1,39 @@
-import linked_list_stack
+from linked_list_stack import Stack
 
-class Hash_Table():
+class Hash_Map():
     def __init__(self, TABLE_SIZE):
-        self.table = [""] * TABLE_SIZE
+        self.table = []
+
+        for idx in range(TABLE_SIZE):
+            self.table.append(Stack())
 
     def __str__(self):
-        return '|'.join([str(elem) for elem in self.table])
+        table_display = ""
+        for idx in range(len(self.table)):
+            table_display += f"{str(idx)}: {str(self.table[idx])}\n"
+        return table_display
     
     def get_hash(self, item):
         hash_index = 0
         for char in item:
             hash_index += ord(char)
-        return hash_index % 20
+        return hash_index % len(self.table)
 
     def insert(self, item):
         hashed_index = self.get_hash(item)
-        # print(f"ITEM: {item} INDEX: {hashed_index}")
-        if self.table[hashed_index] == "":
-            self.table[hashed_index] = item
-        else:
-            # chain with string concat if there are collisions
-            self.table[hashed_index] = self.table[hashed_index] + " " + item
+        stack = self.table[hashed_index]
+        stack.push(item)
+
 
     def search(self, item):
         hashed_index = self.get_hash(item)
-        # print(f"ITEM: {item} INDEX?: {hashed_index}")
-        if self.table[hashed_index] and item in self.table[hashed_index]: 
+        stack = self.table[hashed_index] 
+        if stack.contains(item):
             return hashed_index
         return -1
 
     def remove(self, item):
-        item_index = self.search(item)
-        if item_index < 0:
-            print(f"Error, item {item} not found in list and could not be removed")
-            return False
-
-        removed_item = self.table[item_index]
-        self.table[item_index] = ""
-        print(f"Item: {removed_item} has been removed")
-        # ! FIX THIS TO ACCOUNT FOR CHAINED / LINKED LIST 
-        return removed_item
+        hashed_index = self.get_hash(item)
+        stack = self.table[hashed_index] 
+        if stack.remove(item): return item
+        return False
