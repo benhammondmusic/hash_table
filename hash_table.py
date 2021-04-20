@@ -1,7 +1,4 @@
-""" Methods for any Hash Table must include:
-x - search()
-x - insert()
-- remove() """
+import linked_list_stack
 
 class Hash_Table():
     def __init__(self, TABLE_SIZE):
