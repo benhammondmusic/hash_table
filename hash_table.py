@@ -2,8 +2,6 @@ TABLE_SIZE = 20
 data = ["Ben", "Julie", "Nora", "Emma", "A", "B", "C", "D", "1", "2", "3", "qwerasdfxcv", "1234qwersdfxzcv"]
 
 
-
-
 def hash(value):
     hash_index = 0
     for char in value:
@@ -19,6 +17,7 @@ for item in data:
     if hash_table[hashed_index] == None:
         hash_table[hashed_index] = item
     else:
+        # chain with string concat if there are collisions
         hash_table[hashed_index] = hash_table[hashed_index] + " " + item
 
 
