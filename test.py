@@ -19,3 +19,7 @@ print("finding 1 at", bens_table.search("1"))
 print("finding Nora at", bens_table.search("Nora"))
 print("finding Baxter at", bens_table.search("Baxter"))
 
+print("removing qwerasdfxcv", bens_table.remove("qwerasdfxcv"))
+print("removing AA", bens_table.remove("AA"))
+print("---")
+print(bens_table)
