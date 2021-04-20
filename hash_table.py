@@ -13,17 +13,21 @@ class Hash_Table():
     def get_hash(self, item):
         hash_index = 0
         for char in item:
-            # print(char, "char", ord(char), "ord char")
             hash_index += ord(char)
-            # print(hash_index, "hash idx")
         return hash_index % 20
 
     def insert(self, item):
         hashed_index = self.get_hash(item)
-        print(f"ITEM: {item} INDEX: {hashed_index}")
+        # print(f"ITEM: {item} INDEX: {hashed_index}")
         if self.table[hashed_index] == None:
             self.table[hashed_index] = item
         else:
             # chain with string concat if there are collisions
             self.table[hashed_index] = self.table[hashed_index] + " " + item
 
+    def search(self, item):
+        hashed_index = self.get_hash(item)
+        # print(f"ITEM: {item} INDEX?: {hashed_index}")
+        if self.table[hashed_index] and item in self.table[hashed_index]: 
+            return hashed_index
+        return -1
