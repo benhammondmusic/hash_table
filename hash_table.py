@@ -1,24 +1,29 @@
-TABLE_SIZE = 20
-data = ["Ben", "Julie", "Nora", "Emma", "A", "B", "C", "D", "1", "2", "3", "qwerasdfxcv", "1234qwersdfxzcv"]
+""" Methods for any Hash Table must include:
+- search()
+x - insert()
+- remove() """
 
+class Hash_Table():
+    def __init__(self, TABLE_SIZE):
+        self.table = [None] * TABLE_SIZE
 
-def hash(value):
-    hash_index = 0
-    for char in value:
-        hash_index += ord(char)
-    return hash_index % TABLE_SIZE
+    def __str__(self):
+        return '|'.join([str(elem) for elem in self.table])
+    
+    def get_hash(self, item):
+        hash_index = 0
+        for char in item:
+            # print(char, "char", ord(char), "ord char")
+            hash_index += ord(char)
+            # print(hash_index, "hash idx")
+        return hash_index % 20
 
-hash_table = [None] * TABLE_SIZE
+    def insert(self, item):
+        hashed_index = self.get_hash(item)
+        print(f"ITEM: {item} INDEX: {hashed_index}")
+        if self.table[hashed_index] == None:
+            self.table[hashed_index] = item
+        else:
+            # chain with string concat if there are collisions
+            self.table[hashed_index] = self.table[hashed_index] + " " + item
 
-
-for item in data:
-    hashed_index = hash(item)
-    print(f"ITEM: {item} INDEX: {hashed_index}")
-    if hash_table[hashed_index] == None:
-        hash_table[hashed_index] = item
-    else:
-        # chain with string concat if there are collisions
-        hash_table[hashed_index] = hash_table[hashed_index] + " " + item
-
-
-print("HASH TABLE", hash_table)
